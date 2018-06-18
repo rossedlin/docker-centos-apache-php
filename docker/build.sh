@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-docker build -t vacancies .
+docker build -t exeter .
