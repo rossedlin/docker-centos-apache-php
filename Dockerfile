@@ -17,7 +17,7 @@ RUN yum -y install httpd; yum clean all
 RUN rm /etc/httpd/conf.d/welcome.conf
 
 #Install PHP
-RUN yum -y install php php-ldap php-mbstring php-mysql php-pear php-devel; yum clean all
+RUN yum -y install php php-xml php-ldap php-mbstring php-mysql php-pear php-devel; yum clean all
 
 #Install Composer
 WORKDIR /tmp
