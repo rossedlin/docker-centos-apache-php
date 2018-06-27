@@ -8,4 +8,4 @@
  * Time: 12:10
  */
 
-echo "Hello From Exeter Docker Container";
+phpinfo();
