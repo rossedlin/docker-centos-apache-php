@@ -30,24 +30,19 @@ RUN yum -y install httpd \
     php-pear \
     php-devel; yum clean all
 
-#
-# Cleanup
-#
-#RUN yum clean all
 
+#Install Composer
+WORKDIR /tmp
+RUN curl -sS https://getcomposer.org/installer | php
+RUN mv composer.phar /usr/local/bin/composer
 
-##Install Composer
+#Install Oracle
 #WORKDIR /tmp
-#RUN curl -sS https://getcomposer.org/installer | php
-#RUN mv composer.phar /usr/local/bin/composer
-
-##Install Oracle
-##WORKDIR /tmp
-#ADD ./docker/oracle/oracle-instantclient11.2-basic-11.2.0.4.0-1.x86_64.rpm /tmp/oracle-instantclient11.2-basic-11.2.0.4.0-1.x86_64.rpm
-#ADD ./docker/oracle/oracle-instantclient11.2-devel-11.2.0.4.0-1.x86_64.rpm /tmp/oracle-instantclient11.2-devel-11.2.0.4.0-1.x86_64.rpm
-#RUN rpm -ivh oracle-instantclient11.2-basic-11.2.0.4.0-1.x86_64.rpm
-#RUN rpm -ivh oracle-instantclient11.2-devel-11.2.0.4.0-1.x86_64.rpm
-#RUN pecl install oci8-2.0.12
+ADD ./docker/oracle/oracle-instantclient11.2-basic-11.2.0.4.0-1.x86_64.rpm /tmp/oracle-instantclient11.2-basic-11.2.0.4.0-1.x86_64.rpm
+ADD ./docker/oracle/oracle-instantclient11.2-devel-11.2.0.4.0-1.x86_64.rpm /tmp/oracle-instantclient11.2-devel-11.2.0.4.0-1.x86_64.rpm
+RUN rpm -ivh oracle-instantclient11.2-basic-11.2.0.4.0-1.x86_64.rpm
+RUN rpm -ivh oracle-instantclient11.2-devel-11.2.0.4.0-1.x86_64.rpm
+RUN pecl install oci8-2.0.12
 
 
 ##
