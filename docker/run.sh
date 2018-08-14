@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-docker run -it -p80:80 rossedlin/exeter:5.3b
+docker run -it -p80:80 rossedlin/exeter:5.3c

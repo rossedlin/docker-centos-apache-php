@@ -9,13 +9,8 @@ RUN yum -y update; yum clean all
 # Install Libraries
 #
 RUN yum -y install yum-plugin-ovl \
-    vim-X11 \
-    vim-common \
-    vim-enhanced \
-    vim-minimal \
     gcc \
     libaio \
-    zip \
     unzip; yum clean all
 
 #
@@ -33,45 +28,52 @@ RUN yum -y install httpd \
 
 #Install Composer
 WORKDIR /tmp
-RUN curl -sS https://getcomposer.org/installer | php
-RUN mv composer.phar /usr/local/bin/composer
+RUN curl -sS https://getcomposer.org/installer | php; \
+    mv composer.phar /usr/local/bin/composer;
 
 #Install Oracle
 #WORKDIR /tmp
-ADD ./docker/oracle/oracle-instantclient11.2-basic-11.2.0.4.0-1.x86_64.rpm /tmp/oracle-instantclient11.2-basic-11.2.0.4.0-1.x86_64.rpm
-ADD ./docker/oracle/oracle-instantclient11.2-devel-11.2.0.4.0-1.x86_64.rpm /tmp/oracle-instantclient11.2-devel-11.2.0.4.0-1.x86_64.rpm
-RUN rpm -ivh oracle-instantclient11.2-basic-11.2.0.4.0-1.x86_64.rpm
-RUN rpm -ivh oracle-instantclient11.2-devel-11.2.0.4.0-1.x86_64.rpm
-RUN pecl install oci8-2.0.12
+COPY ./docker/oracle/oracle-instantclient11.2-basic-11.2.0.4.0-1.x86_64.rpm /tmp/oracle-instantclient11.2-basic-11.2.0.4.0-1.x86_64.rpm
+COPY ./docker/oracle/oracle-instantclient11.2-devel-11.2.0.4.0-1.x86_64.rpm /tmp/oracle-instantclient11.2-devel-11.2.0.4.0-1.x86_64.rpm
+RUN rpm -ivh oracle-instantclient11.2-basic-11.2.0.4.0-1.x86_64.rpm; \
+    rpm -ivh oracle-instantclient11.2-devel-11.2.0.4.0-1.x86_64.rpm; \
+    pecl install oci8-2.0.12;
 
 
-##
-## Install X-Debug
-##
-## We're building from SOURCE
-##
+#
+# Install X-Debug
+#
+# We're building from SOURCE
+#
 #WORKDIR /tmp
-#ADD docker/xdebug/xdebug-2.2.7.zip /tmp/xdebug-2.2.7.zip
+#COPY docker/xdebug/xdebug-2.2.7.zip /tmp/xdebug-2.2.7.zip
 #RUN unzip xdebug-2.2.7.zip
 #
 #WORKDIR /tmp/xdebug-2.2.7
-#RUN phpize
-#RUN ./configure --enable-xdebug
-#RUN make
-#RUN make install
+#RUN phpize; \
+#    ./configure --enable-xdebug; \
+#    make; \
+#    make install;
 
 #
 # Config
 #
-RUN rm /etc/httpd/conf.d/welcome.conf
-ADD ./docker/httpd/local.conf /etc/httpd/conf.d/local.conf
-ADD ./docker/php/php-local.ini /etc/php.ini
-ADD logs /var/www/exeter/logs
-ADD public /var/www/exeter/public
+COPY ./docker/httpd/local.conf /etc/httpd/conf.d/local.conf
+COPY ./docker/php/php-local.ini /etc/php.ini
+COPY logs /var/www/logs
+COPY public /var/www/public
+
+#
+# Cleanup
+#
+WORKDIR /
+RUN rm -Rf tmp; \
+    mkdir tmp; \
+    rm /etc/httpd/conf.d/welcome.conf;
 
 
-WORKDIR /var/www/exeter
+WORKDIR /var/www
 
-EXPOSE 80
-CMD apachectl -D FOREGROUND
+#EXPOSE 80
+#CMD apachectl -D FOREGROUND
 ##/usr/sbin/apachectl start
