@@ -58,10 +58,8 @@ RUN rpm -ivh oracle-instantclient11.2-basic-11.2.0.4.0-1.x86_64.rpm; \
 #
 # Config
 #
-COPY ./docker/httpd/local.conf /etc/httpd/conf.d/local.conf
-COPY ./docker/php/php-local.ini /etc/php.ini
-COPY logs /var/www/logs
-COPY public /var/www/public
+COPY ./docker/httpd/httpd.conf /etc/httpd/conf/httpd.conf
+#COPY ./docker/php/php-local.ini /etc/php.ini
 
 #
 # Cleanup
@@ -70,10 +68,13 @@ WORKDIR /
 RUN rm -Rf tmp; \
     mkdir tmp; \
     rm /etc/httpd/conf.d/welcome.conf;
+#    rm -R /var/www;
+
+#COPY logs /var/www/logs
+COPY public /var/www/public
 
 
 WORKDIR /var/www
 
-#EXPOSE 80
-#CMD apachectl -D FOREGROUND
-##/usr/sbin/apachectl start
+EXPOSE 80
+CMD apachectl -D FOREGROUND
