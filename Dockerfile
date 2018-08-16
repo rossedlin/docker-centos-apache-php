@@ -46,20 +46,20 @@ RUN rpm -ivh oracle-instantclient11.2-basic-11.2.0.4.0-1.x86_64.rpm; \
 # We're building from SOURCE
 #
 #WORKDIR /tmp
-#COPY docker/xdebug/xdebug-2.2.7.zip /tmp/xdebug-2.2.7.zip
-#RUN unzip xdebug-2.2.7.zip
-#
-#WORKDIR /tmp/xdebug-2.2.7
-#RUN phpize; \
-#    ./configure --enable-xdebug; \
-#    make; \
-#    make install;
+COPY docker/xdebug/xdebug-2.2.7.zip /tmp/xdebug-2.2.7.zip
+RUN unzip xdebug-2.2.7.zip
+
+WORKDIR /tmp/xdebug-2.2.7
+RUN phpize; \
+    ./configure --enable-xdebug; \
+    make; \
+    make install;
 
 #
 # Config
 #
 COPY ./docker/httpd/httpd.conf /etc/httpd/conf/httpd.conf
-#COPY ./docker/php/php-local.ini /etc/php.ini
+COPY ./docker/php/php-local.ini /etc/php.ini
 
 #
 # Cleanup
@@ -67,10 +67,10 @@ COPY ./docker/httpd/httpd.conf /etc/httpd/conf/httpd.conf
 WORKDIR /
 RUN rm -Rf tmp; \
     mkdir tmp; \
-    rm /etc/httpd/conf.d/welcome.conf;
-#    rm -R /var/www;
+    rm /etc/httpd/conf.d/welcome.conf; \
+    rm -R /var/www;
 
-#COPY logs /var/www/logs
+COPY logs /var/www/logs
 COPY public /var/www/public
 
 
