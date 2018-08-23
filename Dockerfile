@@ -16,6 +16,7 @@ RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.n
     yum install -y http://rpms.remirepo.net/enterprise/remi-release-7.rpm; \
     yum install -y yum-utils; \
     yum install -y wget; \
+    yum install -y unzip; \
     yum clean all; \
     rm -rf /var/cache/yum;
 
