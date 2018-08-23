@@ -37,14 +37,15 @@ RUN cd /etc/yum.repos.d && wget https://repo.codeit.guru/codeit.el`rpm -q --qf "
 #
 RUN yum-config-manager --enable remi-php70; \
     yum install -y php \
-#    php-mcrypt \
-#    php-cli \
-#    php-gd \
-#    php-curl \
-#    php-mysql \
-#    php-ldap \
-#    php-zip \
-#    php-fileinfo; \
+    php-mbstring \
+    php-mcrypt \
+    php-cli \
+    php-gd \
+    php-curl \
+    php-mysql \
+    php-ldap \
+    php-zip \
+    php-fileinfo; \
     yum clean all; \
     rm -rf /var/cache/yum;
 
@@ -53,7 +54,6 @@ RUN yum-config-manager --enable remi-php70; \
 #
 RUN curl -sS https://getcomposer.org/installer | php; \
     mv composer.phar /usr/local/bin/composer;
-
 
 #
 # Setup Httpd & PHP
