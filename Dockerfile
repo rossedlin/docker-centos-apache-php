@@ -19,11 +19,6 @@ RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.n
     yum clean all; \
     rm -rf /var/cache/yum;
 
-#RUN yum -y install yum-plugin-ovl \
-#    gcc \
-#    libaio \
-#    unzip; yum clean all
-
 #
 # Install Httpd v2.4.34
 #
@@ -33,12 +28,13 @@ RUN cd /etc/yum.repos.d && wget https://repo.codeit.guru/codeit.el`rpm -q --qf "
     rm -rf /var/cache/yum;
 
 #
-# Install PHP v7.0.31
+# Install PHP v7.1.21
 #
-RUN yum-config-manager --enable remi-php70; \
+RUN yum-config-manager --enable remi-php71; \
     yum install -y php \
     php-mbstring \
     php-mcrypt \
+    php-dom \
     php-cli \
     php-gd \
     php-curl \
@@ -68,12 +64,12 @@ COPY public /var/www/public
 #
 # Cleanup
 #
-RUN rm -Rf tmp; \
-    mkdir tmp;
+WORKDIR /var/www
+RUN rm -Rf /tmp; \
+    mkdir /tmp;
 
 #
 # Finish
 #
-WORKDIR /var/www
 EXPOSE 80
 CMD apachectl -D FOREGROUND
