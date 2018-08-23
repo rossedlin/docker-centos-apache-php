@@ -2,7 +2,7 @@
 
 This is a docker container build for development purposes.
 
-It includes an `Apache` server and `PHP v5.3.3`
+It includes an `Httpd v2.4.34` server and `PHP v7.1.21`
 
-Mount points are `/var/www/exeter/public` for the website route 
-and `/var/www/exeter/logs` to get the Apache logs.
+Mount points are `/var/www/public` for the website route.
+Frameworks like Laravel should be mount to `/var/www`
