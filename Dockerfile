@@ -35,6 +35,7 @@ RUN yum-config-manager --enable remi-php71; \
     php-mbstring \
     php-mcrypt \
     php-dom \
+    php-xdebug \
     php-cli \
     php-gd \
     php-curl \
