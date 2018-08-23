@@ -48,11 +48,12 @@ RUN yum-config-manager --enable remi-php70; \
     yum clean all; \
     rm -rf /var/cache/yum;
 
-
-##Install Composer
-#RUN curl -sS https://getcomposer.org/installer | php; \
-#    mv composer.phar /usr/local/bin/composer;
 #
+# Install Composer
+#
+RUN curl -sS https://getcomposer.org/installer | php; \
+    mv composer.phar /usr/local/bin/composer;
+
 
 #
 # Setup Httpd & PHP
