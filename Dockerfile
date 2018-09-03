@@ -54,6 +54,12 @@ RUN curl -sS https://getcomposer.org/installer | php; \
     mv composer.phar /usr/local/bin/composer;
 
 #
+# Install NodeJS & NPM
+#
+RUN curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -; \
+    yum -y install nodejs;
+
+#
 # Setup Httpd & PHP
 #
 RUN rm -R /var/www; \
