@@ -60,6 +60,17 @@ RUN curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -; \
     yum -y install nodejs;
 
 #
+# Install Sonar Scanner
+#
+COPY sonar/sonar-scanner-cli-3.0.3.778.zip /tmp/sonar-scanner-cli-3.0.3.778.zip
+RUN yum install -y which; \
+    yum install -y java-1.8.0-openjdk; \
+    unzip sonar-scanner-cli-3.0.3.778.zip; \
+    mv sonar-scanner-3.0.3.778/ /opt/sonar/; \
+    rm sonar-scanner-cli-3.0.3.778.zip;
+#COPY etc/environment /etc/environment
+
+#
 # Setup Httpd & PHP
 #
 RUN rm -R /var/www; \
