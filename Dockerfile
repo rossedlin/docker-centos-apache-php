@@ -32,7 +32,7 @@ RUN cd /etc/yum.repos.d && wget https://repo.codeit.guru/codeit.el`rpm -q --qf "
 #
 # Install PHP v7.1.22
 #
-RUN yum-config-manager --enable remi-php71; \
+RUN yum-config-manager --enable remi-php72; \
     yum install -y php \
     php-mbstring \
     php-mcrypt \
