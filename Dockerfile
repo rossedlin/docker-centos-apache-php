@@ -30,7 +30,7 @@ RUN cd /etc/yum.repos.d && wget https://repo.codeit.guru/codeit.el`rpm -q --qf "
     rm -rf /var/cache/yum;
 
 #
-# Install PHP v7.1.21
+# Install PHP v7.1.22
 #
 RUN yum-config-manager --enable remi-php71; \
     yum install -y php \
