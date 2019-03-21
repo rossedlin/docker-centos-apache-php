@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-docker run -it -p80:80 rossedlin/exeter:7.1a $1
+docker run -it -p80:80 rossedlin/centos-apache-php:7.1 $1
