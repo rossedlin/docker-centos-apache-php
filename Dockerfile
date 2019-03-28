@@ -3,12 +3,11 @@ FROM rossedlin/centos-apache-php:7.1
 WORKDIR /tmp
 
 #
-# Install X-Debug + Copy Development INI
+# Install X-Debug
 #
 RUN yum install -y php-xdebug \
     yum clean all; \
     rm -rf /var/cache/yum;
-COPY ./php/php-development.ini /etc/php.ini
 
 #
 # Install Sonar Scanner
@@ -20,6 +19,16 @@ RUN yum install -y which; \
     mv sonar-scanner-3.0.3.778/ /opt/sonar/; \
     rm sonar-scanner-cli-3.0.3.778.zip;
 #COPY etc/environment /etc/environment
+
+#
+# Copy Development INI
+#
+COPY ./php/php-development.ini /etc/php.ini
+
+#
+# Perms
+#
+RUN chmod 777 -R /var/www
 
 #
 # Finish
