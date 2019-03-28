@@ -3,9 +3,18 @@ FROM rossedlin/centos-apache-php:7.1
 WORKDIR /tmp
 
 #
+# Install VIM
+#
+RUN yum update; \
+    yum install -y vim; \
+    yum clean all; \
+    rm -rf /var/cache/yum;
+
+#
 # Install X-Debug
 #
-RUN yum install -y php-xdebug \
+RUN yum update; \
+    yum install -y php-xdebug \
     yum clean all; \
     rm -rf /var/cache/yum;
 
@@ -13,7 +22,8 @@ RUN yum install -y php-xdebug \
 # Install Sonar Scanner
 #
 COPY sonar/sonar-scanner-cli-3.0.3.778.zip /tmp/sonar-scanner-cli-3.0.3.778.zip
-RUN yum install -y which; \
+RUN yum update; \
+    yum install -y which; \
     yum install -y java-1.8.0-openjdk; \
     unzip sonar-scanner-cli-3.0.3.778.zip; \
     mv sonar-scanner-3.0.3.778/ /opt/sonar/; \
