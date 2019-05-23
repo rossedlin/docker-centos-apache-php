@@ -1,4 +1,4 @@
-# CentOS Docker Server
+# Docker CentOS Apache PHP Server
 
 This is a docker container build for development purposes.
 
