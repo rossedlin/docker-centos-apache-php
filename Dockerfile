@@ -1,4 +1,4 @@
-FROM centos:7.5.1804
+FROM centos:7.6.1810
 
 WORKDIR /tmp
 
@@ -12,7 +12,8 @@ RUN yum -y update; \
 #
 # Install Libraries
 #
-RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm; \
+RUN yum -y update; \
+    yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm; \
     yum install -y http://rpms.remirepo.net/enterprise/remi-release-7.rpm; \
     yum install -y yum-utils; \
     yum install -y wget; \
@@ -24,7 +25,8 @@ RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.n
 #
 # Install Httpd v2.4.34
 #
-RUN cd /etc/yum.repos.d && wget https://repo.codeit.guru/codeit.el`rpm -q --qf "%{VERSION}" $(rpm -q --whatprovides redhat-release)`.repo; \
+RUN yum -y update; \
+    cd /etc/yum.repos.d && wget https://repo.codeit.guru/codeit.el`rpm -q --qf "%{VERSION}" $(rpm -q --whatprovides redhat-release)`.repo; \
     yum install -y httpd; \
     yum clean all; \
     rm -rf /var/cache/yum;
@@ -32,7 +34,8 @@ RUN cd /etc/yum.repos.d && wget https://repo.codeit.guru/codeit.el`rpm -q --qf "
 #
 # Install PHP v7.1.22
 #
-RUN yum-config-manager --enable remi-php72; \
+RUN yum -y update; \
+    yum-config-manager --enable remi-php72; \
     yum install -y php \
     php-mbstring \
     php-mcrypt \
@@ -43,6 +46,7 @@ RUN yum-config-manager --enable remi-php72; \
     php-mysql \
     php-ldap \
     php-zip \
+    php-unzip \
     php-fileinfo; \
     yum clean all; \
     rm -rf /var/cache/yum;
@@ -57,7 +61,10 @@ RUN curl -sS https://getcomposer.org/installer | php; \
 # Install NodeJS & NPM
 #
 RUN curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -; \
-    yum -y install nodejs;
+    yum -y update; \
+    yum -y install nodejs; \
+    yum clean all; \
+    rm -rf /var/cache/yum;
 
 #
 # Setup Httpd & PHP
