@@ -40,6 +40,8 @@ COPY ./php/php-development.ini /etc/php.ini
 #
 RUN chmod 777 -R /var/www
 
+RUN yum --enablerepo=remi install -y php-intl
+
 #
 # Finish
 #
