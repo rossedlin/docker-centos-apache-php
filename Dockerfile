@@ -37,6 +37,7 @@ RUN yum -y update; \
 RUN yum -y update; \
     yum-config-manager --enable remi-php72; \
     yum install -y php \
+    php-intl \
     php-mbstring \
     php-mcrypt \
     php-dom \
