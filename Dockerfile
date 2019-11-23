@@ -32,10 +32,10 @@ RUN yum -y update; \
     rm -rf /var/cache/yum;
 
 #
-# Install PHP v7.2.25
+# Install PHP v7.3.12
 #
 RUN yum -y update; \
-    yum-config-manager --enable remi-php72; \
+    yum-config-manager --enable remi-php73; \
     yum install -y php \
     php-mbstring \
     php-mcrypt \
