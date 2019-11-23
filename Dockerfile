@@ -1,4 +1,4 @@
-FROM rossedlin/centos-apache-php:7.2
+FROM rossedlin/centos-apache-php:7.3
 
 WORKDIR /tmp
 

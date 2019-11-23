@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-docker push rossedlin/centos-apache-php:7.2-dev
+docker push rossedlin/centos-apache-php:7.3-dev
