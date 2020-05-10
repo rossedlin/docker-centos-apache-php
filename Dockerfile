@@ -19,6 +19,7 @@ RUN yum -y update; \
     yum install -y wget; \
     yum install -y git; \
     yum install -y unzip; \
+    yum install -y vim; \
     yum clean all; \
     rm -rf /var/cache/yum;
 
@@ -68,6 +69,12 @@ RUN curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -; \
     rm -rf /var/cache/yum;
 
 #
+# Cleanup
+#
+RUN rm -Rf /tmp; \
+    mkdir /tmp;
+
+#
 # Setup Httpd & PHP
 #
 RUN rm -R /var/www; \
@@ -76,16 +83,17 @@ RUN rm -R /var/www; \
 COPY ./httpd/httpd.conf /etc/httpd/conf/httpd.conf
 COPY ./php/php-production.ini /etc/php.ini
 COPY public /var/www/public
+RUN mkdir /tmp/file_upload
 
 #
-# Cleanup
+# Perms
 #
-WORKDIR /var/www
-RUN rm -Rf /tmp; \
-    mkdir /tmp;
+RUN chmod 777 -R /var/www
+RUN chmod 777 -R /tmp/file_upload
 
 #
 # Finish
 #
+WORKDIR /var/www
 EXPOSE 80
 CMD apachectl -D FOREGROUND
