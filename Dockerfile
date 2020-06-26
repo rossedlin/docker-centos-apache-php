@@ -38,6 +38,7 @@ COPY ./php/php-development.ini /etc/php.ini
 #
 # Perms
 #
+RUN chmod 777 -R /tmp
 RUN chmod 777 -R /var/www
 
 #
