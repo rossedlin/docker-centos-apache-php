@@ -88,8 +88,8 @@ RUN mkdir /tmp/file_upload
 #
 # Perms
 #
+RUN chmod 777 -R /tmp
 RUN chmod 777 -R /var/www
-RUN chmod 777 -R /tmp/file_upload
 
 #
 # Finish
